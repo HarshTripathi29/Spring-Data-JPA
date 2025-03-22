@@ -1,18 +1,17 @@
 package com.example.OneToMany.dtos;
 
-import com.example.OneToMany.models.OrderDetails;
 import com.example.OneToMany.models.UserDetails;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDetailsDto {
     private Long id;
     private String name;
     private String age;
     private String phoneNo;
-    private List<OrderDetails> orders;
+    private List<OrderDetailsDto> orders;  // Use DTO instead of Entity
 
-    // constructor to populate from the user details entity
     public UserDetailsDto(UserDetails userDetails) {
         this.id = userDetails.getUserId();
         this.name = userDetails.getName();
@@ -20,7 +19,13 @@ public class UserDetailsDto {
         this.phoneNo = userDetails.getPhoneNo();
 
         System.out.println("now the orders ");
-        this.orders = userDetails.getOrders();
+
+        // Convert OrderDetails to OrderDetailsDto
+        if (userDetails.getOrders() != null) {
+            this.orders = userDetails.getOrders().stream()
+                    .map(OrderDetailsDto::new)
+                    .collect(Collectors.toList());
+        }
     }
 
     public Long getId() {
@@ -55,11 +60,11 @@ public class UserDetailsDto {
         this.phoneNo = phoneNo;
     }
 
-    public List<OrderDetails> getOrders() {
+    public List<OrderDetailsDto> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderDetails> orders) {
+    public void setOrders(List<OrderDetailsDto> orders) {
         this.orders = orders;
     }
 }
