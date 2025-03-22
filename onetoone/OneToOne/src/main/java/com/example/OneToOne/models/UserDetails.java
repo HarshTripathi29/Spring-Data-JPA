@@ -1,5 +1,6 @@
 package com.example.OneToOne.models;
 
+import com.example.OneToOne.dtos.UserDetailsDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
@@ -11,16 +12,23 @@ public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String phoneNo;
     private String age;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName="addressId")
     private UserAddress address;
 
     //an address_id column in user details table references to the address_id in the user address table.
+
+
+    public UserDetails() {
+    }
+
+    public UserDetailsDTO toDto(){
+        return new UserDetailsDTO(this);
+    }
 
     public Long getId() {
         return id;

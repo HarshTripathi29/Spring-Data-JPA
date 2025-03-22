@@ -1,5 +1,6 @@
 package com.example.OneToOne.controllers;
 
+import com.example.OneToOne.dtos.UserDetailsDTO;
 import com.example.OneToOne.models.UserDetails;
 import com.example.OneToOne.services.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ public class UserDetailsController {
     }
 
     @GetMapping
-    public List<UserDetails> getAllUsers(){
+    public List<UserDetailsDTO> getAllUsers(){
         return userDetailsService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public UserDetailsDTO getUserById(@PathVariable Long id){
+        return userDetailsService.getUserById(id);
     }
 }
