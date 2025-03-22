@@ -1,5 +1,6 @@
 package com.example.OneToOne.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,19 @@ public class UserAddress {
     private String state;
     private String city;
     private String street;
+
+    @OneToOne(mappedBy = "address", fetch = FetchType.EAGER)
+    @JsonBackReference // used in the child entity and tells jackson explicitly to not serialize the parent entity
+    private UserDetails userDetails;
+    // from the user address we can access the user details without creating a foreign key
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 
     public Long getAddressId() {
         return addressId;

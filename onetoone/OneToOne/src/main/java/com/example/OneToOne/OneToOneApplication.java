@@ -13,4 +13,9 @@ public class OneToOneApplication {
 
 	// one user can have one address
 	// using user address and user details association for one to one.
+
+	//Infinite recursion occurs in a bidirectional One-to-One relationship because both entities hold references to each other.
+	// When a framework (like Jackson) tries to serialize one entity into JSON, it follows the reference to the other entity,
+	// which again references back to the first entity.
+	// This cycle keeps repeating indefinitely, causing a StackOverflowError.
 }

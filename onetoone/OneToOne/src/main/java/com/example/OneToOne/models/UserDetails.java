@@ -1,6 +1,7 @@
 package com.example.OneToOne.models;
 
 import com.example.OneToOne.dtos.UserDetailsDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 
@@ -16,8 +17,9 @@ public class UserDetails {
     private String phoneNo;
     private String age;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", referencedColumnName="addressId")
+    @JsonManagedReference // used in the owning entity and tells jackson explicitly to go serialize the child entity.
     private UserAddress address;
 
     //an address_id column in user details table references to the address_id in the user address table.
