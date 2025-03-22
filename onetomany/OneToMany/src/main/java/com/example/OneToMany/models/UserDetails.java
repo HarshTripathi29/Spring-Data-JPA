@@ -1,5 +1,6 @@
 package com.example.OneToMany.models;
 
+import com.example.OneToMany.dtos.UserDetailsDto;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,10 +17,14 @@ public class UserDetails{
     private String age;
     private String phoneNo;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="user_id_fk", referencedColumnName = "userId")
     // here join column is used to tell jpa not to create a new table rather store the fk in the child table
     private List<OrderDetails> orders = new ArrayList<>();
+
+    public UserDetailsDto mapUserDetailsToDTO(){
+        return new UserDetailsDto(this);
+    }
 
     public List<OrderDetails> getOrders() {
         return orders;

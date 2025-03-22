@@ -12,6 +12,7 @@ public class UserDetailsDto {
     private String phoneNo;
     private List<OrderDetails> orders;
 
+    // constructor to populate from the user details entity
     public UserDetailsDto(UserDetails userDetails) {
         this.id = userDetails.getUserId();
         this.name = userDetails.getName();
@@ -20,5 +21,45 @@ public class UserDetailsDto {
 
         System.out.println("now the orders ");
         this.orders = userDetails.getOrders();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public List<OrderDetails> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderDetails> orders) {
+        this.orders = orders;
     }
 }
